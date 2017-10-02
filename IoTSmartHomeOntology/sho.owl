@@ -1,0 +1,1721 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY ssn "http://purl.oclc.org/NET/ssnx/ssn#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY dul "http://www.loa-cnr.it/ontologies/DUL.owl#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.smarthome.com/ontology#"
+     xml:base="http://www.smarthome.com/ontology"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:dul="http://www.loa-cnr.it/ontologies/DUL.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:ssn="http://purl.oclc.org/NET/ssnx/ssn#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.smarthome.com/ontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#attachedSystem -->
+
+    <owl:ObjectProperty rdf:about="&ssn;attachedSystem">
+        <rdfs:label>attached system</rdfs:label>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:comment>Relation between a Platform and any Systems (e.g., Sensors) that are attached to the Platform.</rdfs:comment>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#PlatformSite</rdfs:seeAlso>
+        <rdfs:domain rdf:resource="&ssn;Platform"/>
+        <rdfs:range rdf:resource="&ssn;System"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#featureOfInterest -->
+
+    <owl:ObjectProperty rdf:about="&ssn;featureOfInterest">
+        <rdfs:label>feature of interest</rdfs:label>
+        <rdfs:comment>A relation between an observation and the entity whose quality was observed. For example, in an observation of the weight of a person, the feature of interest is the person and the quality is weight.</rdfs:comment>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+        <rdfs:domain rdf:resource="&ssn;Observation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#hasSubSystem -->
+
+    <owl:ObjectProperty rdf:about="&ssn;hasSubSystem">
+        <rdfs:label>has subsystem</rdfs:label>
+        <rdfs:comment>Has part relation between a system and its parts.</rdfs:comment>
+        <rdfs:range rdf:resource="&ssn;Sensor"/>
+        <rdfs:range rdf:resource="&ssn;System"/>
+        <rdfs:domain rdf:resource="&ssn;System"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#isPropertyOf -->
+
+    <owl:ObjectProperty rdf:about="&ssn;isPropertyOf">
+        <rdfs:label>is property of</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+        <rdfs:comment>Relation between a FeatureOfInterest and a Property (a Quality observable by a sensor) of that feature.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ssn;Property"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#observedBy -->
+
+    <owl:ObjectProperty rdf:about="&ssn;observedBy">
+        <rdfs:label>observed by</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+        <rdfs:domain rdf:resource="&ssn;Observation"/>
+        <rdfs:range rdf:resource="&ssn;Sensor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#observedProperty -->
+
+    <owl:ObjectProperty rdf:about="&ssn;observedProperty">
+        <rdfs:label>observerd porperty</rdfs:label>
+        <rdfs:comment>Relation linking an Observation to the Property that was observed. The observedProperty should be a Property (hasProperty) of the FeatureOfInterest (linked by featureOfInterest) of this observation.</rdfs:comment>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+        <rdfs:domain rdf:resource="&ssn;Observation"/>
+        <rdfs:range rdf:resource="&ssn;Property"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#observes -->
+
+    <owl:ObjectProperty rdf:about="&ssn;observes">
+        <rdfs:label>observes</rdfs:label>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Sensor#Measuring</rdfs:seeAlso>
+        <rdfs:comment>Relation between a Sensor and a Property that the sensor can observe. Note that, given the DUL modelling of Qualities, a sensor defined with &apos;observes only Windspeed&apos; technically links the sensor to particular instances of Windspeed, not to the concept itself - OWL can&apos;t express concept-concept relations, only individual-individual. The property composition ensures that if an observation is made of a particular quality then one can infer that the sensor observes that quality.</rdfs:comment>
+        <rdfs:range rdf:resource="&ssn;Property"/>
+        <rdfs:domain rdf:resource="&ssn;Sensor"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#onPlatform -->
+
+    <owl:ObjectProperty rdf:about="&ssn;onPlatform">
+        <rdfs:label>on platform</rdfs:label>
+        <rdfs:comment>Relation between a System (e.g., a Sensor) and a Platform. The relation locates the sensor relative to other described entities entities: i.e., the Sensor s1&apos;s location is Platform p1. More precise locations for sensors in space (relative to other entities, where attached to another entity, or in 3D space) are made using DOLCE&apos;s Regions (SpaceRegion).</rdfs:comment>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#PlatformSite</rdfs:seeAlso>
+        <rdfs:range rdf:resource="&ssn;Platform"/>
+        <rdfs:domain rdf:resource="&ssn;Sensor"/>
+        <rdfs:domain rdf:resource="&ssn;System"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#commandToSystem -->
+
+    <owl:ObjectProperty rdf:about="http://www.smarthome.com/ontology#commandToSystem">
+        <rdfs:comment>command to system</rdfs:comment>
+        <rdfs:range rdf:resource="&ssn;System"/>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#ModeCommand"/>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#PlatformCommand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#hasUnit -->
+
+    <owl:ObjectProperty rdf:about="http://www.smarthome.com/ontology#hasUnit">
+        <rdfs:label>has unit</rdfs:label>
+        <rdfs:domain rdf:resource="&ssn;Property"/>
+        <rdfs:range rdf:resource="http://www.smarthome.com/ontology#Unit"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#mc_setMode -->
+
+    <owl:ObjectProperty rdf:about="http://www.smarthome.com/ontology#mc_setMode">
+        <rdfs:label>mode platform</rdfs:label>
+        <rdfs:comment>Expresses the command of setting mode of a Platform.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#pc_start -->
+
+    <owl:ObjectProperty rdf:about="http://www.smarthome.com/ontology#pc_start">
+        <rdfs:label>start platform</rdfs:label>
+        <rdfs:comment>Expresses the command to start to a Platform.</rdfs:comment>
+        <rdfs:range rdf:resource="&ssn;Platform"/>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#PlatformCommand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#pc_stop -->
+
+    <owl:ObjectProperty rdf:about="http://www.smarthome.com/ontology#pc_stop">
+        <rdfs:label>stop platform</rdfs:label>
+        <rdfs:comment>Expresses the command to &apos;stop&apos; to a Platform.</rdfs:comment>
+        <rdfs:range rdf:resource="&ssn;Platform"/>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#PlatformCommand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sc_alarmOff -->
+
+    <owl:ObjectProperty rdf:about="http://www.smarthome.com/ontology#sc_alarmOff">
+        <rdfs:label>alarm off</rdfs:label>
+        <rdfs:range rdf:resource="&ssn;Platform"/>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#SystemCommand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sc_alarmOn -->
+
+    <owl:ObjectProperty rdf:about="http://www.smarthome.com/ontology#sc_alarmOn">
+        <rdfs:label>alarm on</rdfs:label>
+        <rdfs:range rdf:resource="&ssn;Platform"/>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#SystemCommand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sc_start -->
+
+    <owl:ObjectProperty rdf:about="http://www.smarthome.com/ontology#sc_start">
+        <rdfs:label>start system</rdfs:label>
+        <rdfs:comment>Expresses the command to &apos;start&apos; to a System.</rdfs:comment>
+        <rdfs:range rdf:resource="&ssn;System"/>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#SystemCommand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sc_stop -->
+
+    <owl:ObjectProperty rdf:about="http://www.smarthome.com/ontology#sc_stop">
+        <rdfs:label>stop system</rdfs:label>
+        <rdfs:comment>Expresses the command to &apos;stop&apos; to a System.</rdfs:comment>
+        <rdfs:range rdf:resource="&ssn;System"/>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#SystemCommand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.smarthome.com/ontology#hasSymbol -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smarthome.com/ontology#hasSymbol">
+        <rdfs:label>has symbol</rdfs:label>
+        <rdfs:comment>Describes a unit&apos;s prefered symbol.</rdfs:comment>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#Unit"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#mode -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smarthome.com/ontology#mode">
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#ModeCommand"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#observationValue -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smarthome.com/ontology#observationValue">
+        <rdfs:label>observation value</rdfs:label>
+        <rdfs:domain rdf:resource="&ssn;Observation"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#safeMax -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smarthome.com/ontology#safeMax">
+        <rdfs:comment>Describes the maximum value of the safe range</rdfs:comment>
+        <rdfs:domain rdf:resource="&ssn;Sensor"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#safeMin -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smarthome.com/ontology#safeMin">
+        <rdfs:comment>Describes the minimum value of the safe range</rdfs:comment>
+        <rdfs:domain rdf:resource="&ssn;Sensor"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#time -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smarthome.com/ontology#time">
+        <rdfs:comment>Shows the time of a command or observation. Format is : YYYY-MM-DDTHH:MM:SS . &quot;T&quot; in the middle seperates date and time.</rdfs:comment>
+        <rdfs:domain rdf:resource="&ssn;Observation"/>
+        <rdfs:domain rdf:resource="http://www.smarthome.com/ontology#Command"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Observation -->
+
+    <owl:Class rdf:about="&ssn;Observation">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:comment>An Observation is a Situation in which a Sensing method has been used to estimate or calculate a value of a Property of a FeatureOfInterest. Links to Sensing and Sensor describe what made the Observation and how; links to Property and Feature detail what was sensed; the result is the output of a Sensor; other metadata details times etc.</rdfs:comment>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Platform -->
+
+    <owl:Class rdf:about="&ssn;Platform">
+        <rdfs:subClassOf rdf:resource="&dul;PhysicalObject"/>
+        <rdfs:comment>An Entity to which other Entities can be attached - particuarly Sensors and other Platforms. For example, a post might act as the Platform, a bouy might act as a Platform, or a fish might act as a Platform for an attached sensor.</rdfs:comment>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Deploy#PlatformSite</rdfs:seeAlso>
+        <rdfs:isDefinedBy>http://purl.oclc.org/NET/ssnx/ssn</rdfs:isDefinedBy>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Property -->
+
+    <owl:Class rdf:about="&ssn;Property">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:comment>An observable Quality of an Event or Object. That is, not a quality of an abstract entity as is also allowed by DUL&apos;s Quality, but rather an aspect of an entity that is intrinsic to and cannot exist without the entity and is observable by a sensor.</rdfs:comment>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#Sensor -->
+
+    <owl:Class rdf:about="&ssn;Sensor">
+        <rdfs:subClassOf rdf:resource="&ssn;System"/>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Skeleton#Skeleton</rdfs:seeAlso>
+        <rdfs:comment>A sensor can do (implements) sensing: that is, a sensor is any entity that can follow a sensing method and thus observe some Property of a FeatureOfInterest. Sensors may be physical devices, computational methods, a laboratory setup with a person following a method, or any other thing that can follow a Sensing Method to observe a Property.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.oclc.org/NET/ssnx/ssn#System -->
+
+    <owl:Class rdf:about="&ssn;System">
+        <rdfs:subClassOf rdf:resource="&dul;PhysicalObject"/>
+        <rdfs:seeAlso>http://www.w3.org/2005/Incubator/ssn/wiki/SSN_Model#System</rdfs:seeAlso>
+        <rdfs:comment>System is a unit of abstraction for pieces of infrastructure (and we largely care that they are) for sensing. A system has components, its subsystems, which are other systems.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.loa-cnr.it/ontologies/DUL.owl#PhysicalObject -->
+
+    <owl:Class rdf:about="&dul;PhysicalObject"/>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#Command -->
+
+    <owl:Class rdf:about="http://www.smarthome.com/ontology#Command"/>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#ModeCommand -->
+
+    <owl:Class rdf:about="http://www.smarthome.com/ontology#ModeCommand">
+        <rdfs:label>Mode Command</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.smarthome.com/ontology#Command"/>
+        <rdfs:comment>Class that expresses commands to set modes of Platforms. It has an object property: mc_setMode.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#PlatformCommand -->
+
+    <owl:Class rdf:about="http://www.smarthome.com/ontology#PlatformCommand">
+        <rdfs:label>Platform Command</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.smarthome.com/ontology#Command"/>
+        <rdfs:comment>Class that expresses commands to Platforms. It has two object property: pc_start and pc_stop.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#SystemCommand -->
+
+    <owl:Class rdf:about="http://www.smarthome.com/ontology#SystemCommand">
+        <rdfs:label>System Command</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.smarthome.com/ontology#Command"/>
+        <rdfs:comment>Class that expresses commands to Systems. It has two object property: sc_start and sc_stop.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#Unit -->
+
+    <owl:Class rdf:about="http://www.smarthome.com/ontology#Unit"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.smarthome.com/ontology#Celsius -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#Celsius">
+        <rdf:type rdf:resource="http://www.smarthome.com/ontology#Unit"/>
+        <hasSymbol rdf:datatype="&xsd;string">°C</hasSymbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#Lux -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#Lux">
+        <rdf:type rdf:resource="http://www.smarthome.com/ontology#Unit"/>
+        <hasSymbol rdf:datatype="&xsd;string">lx</hasSymbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#Watt -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#Watt">
+        <rdf:type rdf:resource="http://www.smarthome.com/ontology#Unit"/>
+        <hasSymbol rdf:datatype="&xsd;string">W</hasSymbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#bathroom -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#bathroom">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Bathroom</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_heating"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_lightning"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#computer -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#computer">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Computer</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_homeAppliances"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#dishWasher -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#dishWasher">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Dish Washer</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_homeAppliances"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#electricity -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#electricity">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Electricity</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#gas -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#gas">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Gas</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#hall -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#hall">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Hall</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_heating"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_lightning"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#illuminance -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#illuminance">
+        <rdf:type rdf:resource="&ssn;Property"/>
+        <hasUnit rdf:resource="http://www.smarthome.com/ontology#Lux"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room1"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room2"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room3"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#kitchen -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#kitchen">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Kitchen</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_heating"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_lightning"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#mode">
+        <rdf:type rdf:resource="&ssn;Property"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#computer"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#dishWasher"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#electricity"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#oven"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#refrigerator"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room1"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room2"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room3"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room4"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#television"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#washingMachine"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#water"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#oven -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#oven">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Oven</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_homeAppliances"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#power -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#power">
+        <rdf:type rdf:resource="&ssn;Property"/>
+        <hasUnit rdf:resource="http://www.smarthome.com/ontology#Watt"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#computer"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#dishWasher"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#oven"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#refrigerator"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#television"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#washingMachine"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#refrigerator -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#refrigerator">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Refrigerator</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_homeAppliances"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#room1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#room1">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Room 1</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_heating"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_lightning"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#room2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#room2">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Room 2</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_heating"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_lightning"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#room3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#room3">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Room 3</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_heating"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_lightning"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#room4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#room4">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Room 4</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_heating"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_lightning"/>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_br_h_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_br_h_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses bathroom heating system&apos;s operating mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_br_h_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_br_h_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses bathroom heating system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_br_illum -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_br_illum">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses bathroom&apos;s illuminance.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#illuminance"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_br_l_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_br_l_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses bathroom light&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_br_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_br_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses bathroom security system&apos;s operating mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_br_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_br_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses bathroom security system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_br_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_br_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <safeMin rdf:datatype="&xsd;int">10</safeMin>
+        <safeMax rdf:datatype="&xsd;int">30</safeMax>
+        <rdfs:comment>Senses bathroom&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_dw_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_dw_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses dish washer&apos;s operating mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#dishWasher"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_dw_power -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_dw_power">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses dish washer&apos;s power consumption.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#dishWasher"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#power"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_dw_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_dw_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses dish washer&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#dishWasher"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_dw_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_dw_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses dish washer&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#dishWasher"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ele_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ele_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses electricity security system&apos;s operating mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#electricity"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ele_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ele_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses electricity security system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#electricity"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_gas_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_gas_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses gas security system&apos;s operating mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#gas"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_gas_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_gas_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses gas security system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#gas"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_hall_h_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_hall_h_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses hall heating system&apos;s operating mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_hall_h_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_hall_h_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses hall heating system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_hall_illum -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_hall_illum">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses hall&apos;s illuminance.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#illuminance"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_hall_l_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_hall_l_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses hall light&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_hall_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_hall_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses hall security system&apos;s operating mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_hall_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_hall_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses hall security system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_hall_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_hall_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses hall&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_kit_h_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_kit_h_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses kitchen heating system&apos;s operating mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_kit_h_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_kit_h_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses kitchen heating system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_kit_illum -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_kit_illum">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses kitchen&apos;s illuminance.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#illuminance"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_kit_l_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_kit_l_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses kitchen light&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_kit_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_kit_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses kitchen security system&apos;s operating mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_kit_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_kit_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses kitchen security system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_kit_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_kit_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses kitchen&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ov_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ov_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses oven&apos;s operation mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#oven"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ov_power -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ov_power">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses oven&apos;s power comsumption.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#oven"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#power"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ov_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ov_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses oven&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#oven"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ov_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ov_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses oven&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#oven"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_pc_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_pc_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses PC&apos;s opreation mode.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#computer"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_pc_power -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_pc_power">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses PC&apos;s power consumption.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#computer"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#power"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_pc_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_pc_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses PC&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#computer"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_pc_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_pc_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses PC&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#computer"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r1_h_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r1_h_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 1 heating system&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r1_h_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r1_h_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 1 heating system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room1"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r1_illum -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r1_illum">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <safeMax rdf:datatype="&xsd;int">350</safeMax>
+        <safeMin rdf:datatype="&xsd;int">40</safeMin>
+        <rdfs:comment>Senses Room 1&apos;s illuminance.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#illuminance"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r1_l_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r1_l_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 1 light&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room1"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r1_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r1_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 1 security system&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r1_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r1_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 1 security system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room1"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r1_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r1_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <safeMax rdf:datatype="&xsd;int">25</safeMax>
+        <safeMin rdf:datatype="&xsd;int">5</safeMin>
+        <rdfs:comment>Senses Room 1&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room1"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r2_h_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r2_h_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 2 heating system&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r2_h_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r2_h_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 2 heating system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room2"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r2_illum -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r2_illum">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 2&apos;s illuminance.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room2"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r2_l_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r2_l_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 2 light&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room2"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r2_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r2_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 2 security system&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r2_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r2_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 2 security system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room2"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r2_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r2_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <safeMin rdf:datatype="&xsd;int">15</safeMin>
+        <safeMax rdf:datatype="&xsd;int">35</safeMax>
+        <rdfs:comment>Senses Room 2&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room2"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r3_h_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r3_h_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 3 heating system&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r3_h_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r3_h_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 3 heating system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room3"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r3_illum -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r3_illum">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 3&apos;s illuminance.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#illuminance"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r3_l_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r3_l_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 3 light&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room3"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r3_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r3_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 3 security system&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r3_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r3_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 3 security system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room3"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r3_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r3_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 3&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room3"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r4_h_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r4_h_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 4 heating system&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r4_h_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r4_h_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 4 heating system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room4"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r4_illum -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r4_illum">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 4&apos;s illuminance.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#illuminance"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r4_l_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r4_l_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 4 light&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room4"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r4_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r4_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 4 security system&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r4_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r4_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 4 security system&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room4"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_r4_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_r4_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses Room 4&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#room4"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ref_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ref_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses refrigerator&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#refrigerator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ref_power -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ref_power">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <safeMin rdf:datatype="&xsd;int">200</safeMin>
+        <safeMax rdf:datatype="&xsd;int">400</safeMax>
+        <rdfs:comment>Senses refrigerator&apos;s power consumption.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#power"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#refrigerator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ref_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ref_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses refrigerator&apos;s status.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#refrigerator"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_ref_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_ref_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <safeMin rdf:datatype="&xsd;int">0</safeMin>
+        <safeMax rdf:datatype="&xsd;int">40</safeMax>
+        <rdfs:comment>Senses refrigerator&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#refrigerator"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_tv_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_tv_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses TV&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#television"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_tv_power -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_tv_power">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses TV&apos;s power consumption.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#power"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#television"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_tv_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_tv_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses TV&apos;s status.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#television"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_tv_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_tv_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses TV&apos;s temperature.</rdfs:comment>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#television"/>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_wm_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_wm_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses washing machine&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#washingMachine"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_wm_power -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_wm_power">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses washing machine&apos;s power consumption.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#power"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#washingMachine"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_wm_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_wm_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses washing machine&apos;s status.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#washingMachine"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_wm_temp -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_wm_temp">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses washing machine&apos;s temperature.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#temperature"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#washingMachine"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_wtr_s_mode -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_wtr_s_mode">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses water security system&apos;s operating mode.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#mode"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#water"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#sensor_wtr_s_status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#sensor_wtr_s_status">
+        <rdf:type rdf:resource="&ssn;Sensor"/>
+        <rdfs:comment>Senses water security system&apos;s status.</rdfs:comment>
+        <ssn:observes rdf:resource="http://www.smarthome.com/ontology#status"/>
+        <ssn:onPlatform rdf:resource="http://www.smarthome.com/ontology#water"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#status -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#status">
+        <rdf:type rdf:resource="&ssn;Property"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#computer"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#dishWasher"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#oven"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#refrigerator"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room1"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room2"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room3"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room4"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#television"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#washingMachine"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#system_heating -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#system_heating">
+        <rdf:type rdf:resource="&ssn;System"/>
+        <rdfs:label>Heating System</rdfs:label>
+        <rdfs:comment>Includes sensors on platforms bathroom, hall, kitchen, rooms 1-4.</rdfs:comment>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_br_h_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_br_h_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_br_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_hall_h_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_hall_h_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_hall_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_kit_h_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_kit_h_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_kit_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r1_h_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r1_h_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r1_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r2_h_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r2_h_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r2_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r3_h_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r3_h_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r3_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r4_h_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r4_h_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r4_temp"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#system_homeAppliances -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#system_homeAppliances">
+        <rdf:type rdf:resource="&ssn;System"/>
+        <rdfs:label>Home Appliances System</rdfs:label>
+        <rdfs:comment>Includes sensors on platforms refrigerator, washing machine, dish washer, tv, oven and computer.</rdfs:comment>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_dw_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_dw_power"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_dw_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_dw_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ov_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ov_power"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ov_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ov_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_pc_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_pc_power"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_pc_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_pc_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ref_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ref_power"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ref_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ref_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_tv_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_tv_power"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_tv_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_tv_temp"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_wm_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_wm_power"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_wm_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_wm_temp"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#system_lightning -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#system_lightning">
+        <rdf:type rdf:resource="&ssn;System"/>
+        <rdfs:label>Lightning System</rdfs:label>
+        <rdfs:comment>Includes sensors on platforms bathroom, hall, kitchen, rooms 1-4.</rdfs:comment>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_br_illum"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_br_l_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_hall_illum"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_hall_l_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_kit_illum"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_kit_l_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r1_illum"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r1_l_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r2_illum"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r2_l_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r3_illum"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r3_l_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r4_illum"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r4_l_status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#system_security -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#system_security">
+        <rdf:type rdf:resource="&ssn;System"/>
+        <rdfs:label>Security System</rdfs:label>
+        <rdfs:comment>Includes sensors on platforms bathroom, electricity, gas, hall, kitchen, rooms 1-4 and water.</rdfs:comment>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_br_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_br_s_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ele_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_ele_s_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_gas_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_gas_s_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_hall_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_hall_s_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_kit_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_kit_s_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r1_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r1_s_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r2_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r2_s_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r3_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r3_s_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r4_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_r4_s_status"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_wtr_s_mode"/>
+        <ssn:hasSubSystem rdf:resource="http://www.smarthome.com/ontology#sensor_wtr_s_status"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#television -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#television">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>TV</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_homeAppliances"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#temperature -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#temperature">
+        <rdf:type rdf:resource="&ssn;Property"/>
+        <hasUnit rdf:resource="http://www.smarthome.com/ontology#Celsius"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#bathroom"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#computer"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#dishWasher"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#hall"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#kitchen"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#oven"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#refrigerator"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room1"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room2"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room3"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#room4"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#television"/>
+        <ssn:isPropertyOf rdf:resource="http://www.smarthome.com/ontology#washingMachine"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#washingMachine -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#washingMachine">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Washing Machine</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_homeAppliances"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smarthome.com/ontology#water -->
+
+    <owl:NamedIndividual rdf:about="http://www.smarthome.com/ontology#water">
+        <rdf:type rdf:resource="&ssn;Platform"/>
+        <rdfs:label>Water</rdfs:label>
+        <ssn:attachedSystem rdf:resource="http://www.smarthome.com/ontology#system_security"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+
