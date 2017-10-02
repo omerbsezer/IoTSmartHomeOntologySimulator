@@ -16,8 +16,25 @@ Ontology: /IoTSmartHomeOntology
 
 Simulator Source Code: /IoTSimulationEnvironment
 
-Full Paper:
+**Full Paper:**
 
 IEEE Link: http://ieeexplore.ieee.org/abstract/document/7210389/ 
 
 ResearchGate Link: [PDF](https://www.researchgate.net/profile/Erdogan_Dogdu/publication/308850426_Development_of_a_smart_home_ontology_and_the_implementation_of_a_semantic_sensor_network_simulator_An_Internet_of_Things_approach/links/58014e0f08ae23fd1b620369.pdf)
+
+_**Cite as:**_
+
+**Bibtex:**
+
+@inproceedings{sezer2015development,
+  title={Development of a smart home ontology and the implementation of a semantic sensor network simulator: An internet of things approach},
+  author={Sezer, Omer Berat and Can, Serdar Zafer and Dogdu, Erdogan},
+  booktitle={Collaboration Technologies and Systems (CTS), 2015 International Conference on},
+  pages={12--18},
+  year={2015},
+  organization={IEEE}
+}
+
+**MLA:**
+
+Sezer, Omer Berat, Serdar Zafer Can, and Erdogan Dogdu. "Development of a smart home ontology and the implementation of a semantic sensor network simulator: An internet of things approach." Collaboration Technologies and Systems (CTS), 2015 International Conference on. IEEE, 2015.
