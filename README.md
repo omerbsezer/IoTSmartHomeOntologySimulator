@@ -12,9 +12,9 @@ heating devices are modelled separately. Master/slave model is used to implement
 communicate with each other via using a message queue. The main computer system controls the whole system as a master node where the other systems behave like slaves and
 get commands from the master and execute."
 
-Ontology: /IoTSmartHomeOntology
+**Ontology:** ./IoTSmartHomeOntology
 
-Simulator Source Code: /IoTSimulationEnvironment
+**Simulator Source Code:** ./IoTSimulationEnvironment
 
 **Full Paper:**
 
