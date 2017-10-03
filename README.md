@@ -26,6 +26,7 @@ _**Cite as:**_
 
 **Bibtex:**
 
+```
 @inproceedings{sezer2015development,
   title={Development of a smart home ontology and the implementation of a semantic sensor network simulator: An internet of things approach},
   author={Sezer, Omer Berat and Can, Serdar Zafer and Dogdu, Erdogan},
@@ -34,7 +35,7 @@ _**Cite as:**_
   year={2015},
   organization={IEEE}
 }
-
+```
 **MLA:**
 
 Sezer, Omer Berat, Serdar Zafer Can, and Erdogan Dogdu. "Development of a smart home ontology and the implementation of a semantic sensor network simulator: An internet of things approach." Collaboration Technologies and Systems (CTS), 2015 International Conference on. IEEE, 2015.
